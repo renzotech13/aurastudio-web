@@ -85,7 +85,7 @@
     var target = isMobile ? wrap.querySelector('.t-mob') : wrap.querySelector('.t-desk');
     if (!target) return;
 
-    var split = new SplitType(target, { types: 'chars' });
+    var split = new SplitType(target, { types: 'words, chars' });
 
     var tl = gsap.timeline({ delay: 0.25 });
     tl.from(split.chars, {
@@ -165,7 +165,7 @@
     document.querySelectorAll(scope).forEach(function (el) {
       var node = el.querySelector(sel);
       if (!node) return;
-      var split = new SplitType(node, { types: 'chars' });
+      var split = new SplitType(node, { types: 'words, chars' });
       gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 80%' } })
         .from(split.chars, { y: 30, opacity: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out' });
     });
@@ -191,7 +191,7 @@
     heads.forEach(function (headEl, i) {
       var h = headEl.querySelector('h2');
       if (!h) return;
-      var splitH = new SplitType(h, { types: 'chars' });
+      var splitH = new SplitType(h, { types: 'words, chars' });
       var tl = gsap.timeline({ scrollTrigger: { trigger: headEl, start: 'top 80%' } });
 
       tl.from(splitH.chars, { y: 30, opacity: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out' });
@@ -250,7 +250,7 @@
       var h2 = el.querySelector('h2');
       var h3wrap = document.querySelectorAll('.home-carousel-h3')[i];
       if (!h2) return;
-      var splitH2 = new SplitType(h2, { types: 'chars' });
+      var splitH2 = new SplitType(h2, { types: 'words, chars' });
       var tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 80%' } });
       tl.from(splitH2.chars, { y: 30, opacity: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out' });
       if (h3wrap && h3wrap.querySelector('h3')) {
@@ -263,7 +263,7 @@
     if (!REDUCED) document.querySelectorAll('.gallery-container').forEach(function (container) {
       var heading = container.querySelector('.gallery-sm h2');
       if (!heading) return;
-      var split = new SplitType(heading, { types: 'chars' });
+      var split = new SplitType(heading, { types: 'words, chars' });
       var button = container.querySelector('.gallery-button');
       var tl = gsap.timeline({ scrollTrigger: { trigger: container, start: 'top 80%' } });
       tl.from(split.chars, { y: 30, opacity: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out' });
@@ -318,7 +318,7 @@
       var heading = container.querySelector('.carousel-heading h2');
       if (!heading) return;
 
-      var split = new SplitType(heading, { types: 'chars' });
+      var split = new SplitType(heading, { types: 'words, chars' });
 
       var tl = gsap.timeline({
         scrollTrigger: { trigger: carousel, start: 'top 50%', once: true },
