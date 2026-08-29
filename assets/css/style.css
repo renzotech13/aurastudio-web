@@ -572,6 +572,7 @@ body.is-locked{overflow:hidden;}
 /* chips de categoría */
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 4px;}
 .chip{
+  display:inline-flex;align-items:center;gap:7px;
   border:1px solid rgba(200,145,22,.5);background:transparent;color:var(--brown);
   border-radius:30px;padding:8px 16px;font-size:12.5px;letter-spacing:.04em;
   cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
@@ -580,6 +581,8 @@ body.is-locked{overflow:hidden;}
 .chip:hover{border-color:var(--gold);background:rgba(200,145,22,.1);}
 .chip.on{background:var(--gold);border-color:var(--gold);color:#fff;}
 .chip[disabled]{opacity:.35;pointer-events:none;}
+.chip-icon{width:15px;height:15px;flex:none;color:var(--gold-deep);transition:color .3s var(--ease);}
+.chip.on .chip-icon{color:#fff;}
 
 /* tarjetas de servicio */
 .grp-t{
