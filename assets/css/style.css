@@ -91,6 +91,7 @@ html.lenis,html.lenis body{height:auto;}
   box-shadow:0 1px 0 rgba(200,145,22,.28);
 }
 .header-inner{
+  position:relative;
   display:flex;align-items:center;justify-content:space-between;gap:clamp(12px,2vw,40px);
 }
 .nav{display:flex;align-items:center;gap:clamp(12px,1.7vw,30px);}
@@ -103,7 +104,12 @@ html.lenis,html.lenis body{height:auto;}
   transition:width .4s var(--ease);
 }
 .nav a:hover::after{width:100%;}
-.brand{flex:0 0 auto;}
+/* Centrado real en el eje del header, independiente de que nav-left y
+   nav-right tengan distinto ancho (space-between por sí solo no lo logra). */
+.brand{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  flex:none;
+}
 .brand img{height:clamp(44px,4.6vw,66px);width:auto;}
 .site-header.scrolled .brand img{height:clamp(36px,3.4vw,48px);transition:height .5s var(--ease);}
 
@@ -453,8 +459,7 @@ html.lenis,html.lenis body{height:auto;}
 @media (max-width:900px){
   .nav-left,.nav-right{display:none;}
   .burger{display:flex;}
-  .header-inner{position:relative;justify-content:flex-end;min-height:52px;}
-  .brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
+  .header-inner{justify-content:flex-end;min-height:52px;}
   .site-header.open{background:rgba(46,29,18,.97);backdrop-filter:blur(12px);}
   .site-header.open .mobile-menu{display:flex;}
   .hero-heading .t-desk{display:none;}
