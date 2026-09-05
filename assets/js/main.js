@@ -242,6 +242,7 @@
     revealBlock('.radius-heading', '.radius-p', '.radius-button');
     revealBlock('.home-scroll-h2', '.home-scroll-p', null);
     revealBlock('.home-text-h2', '.home-text-p', '.home-text-button');
+    revealChars('.promos-h2', 'h2');
     revealChars('.gallery-h2', 'h2');
     revealChars('.testimonial-h2', 'h2');
 
