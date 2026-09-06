@@ -107,7 +107,7 @@
 <section class="services-section" id="servicios">
   <div class="section-head">
     <div class="home-carousel-h2">
-      <h2>Una experiencia de belleza,<br>pensada al detalle</h2>
+      <h2>Una experiencia de belleza,<br>pensada al <span class="script">Detalle</span></h2>
     </div>
     <div class="home-carousel-h3">
       <h3>Servicios para cuidar tu imagen de pies a cabeza.</h3>
@@ -120,37 +120,37 @@
 
         <div class="swiper-slide">
           <article class="carousel-container" style="background-image:url('assets/img/var-4.webp')">
-            <div class="carousel-heading"><h2>Estética facial,<br>mirada y<br>maquillaje</h2></div>
+            <div class="carousel-heading"><h2>Estética facial,<br>mirada y<br><span class="script">Maquillaje</span></h2></div>
           </article>
         </div>
 
         <div class="swiper-slide">
           <article class="carousel-container" style="background-image:url('assets/img/var-11.webp')">
-            <div class="carousel-heading"><h2>Peluquería y<br>tratamientos<br>capilares</h2></div>
+            <div class="carousel-heading"><h2>Peluquería y<br>tratamientos<br><span class="script">Capilares</span></h2></div>
           </article>
         </div>
 
         <div class="swiper-slide">
           <article class="carousel-container" style="background-image:url('assets/img/var-19.webp')">
-            <div class="carousel-heading"><h2>Manicure,<br>pedicure<br>y uñas</h2></div>
+            <div class="carousel-heading"><h2>Manicure,<br>pedicure<br>y <span class="script">Uñas</span></h2></div>
           </article>
         </div>
 
         <div class="swiper-slide">
           <article class="carousel-container" style="background-image:url('assets/img/promo-hair-revival.webp')">
-            <div class="carousel-heading"><h2>Aura<br>Hair<br>Revival</h2></div>
+            <div class="carousel-heading"><h2>Aura<br>Hair<br><span class="script">Revival</span></h2></div>
           </article>
         </div>
 
         <div class="swiper-slide">
           <article class="carousel-container" style="background-image:url('assets/img/fondo-7.webp')">
-            <div class="carousel-heading"><h2>Peinados<br>y<br>barbería</h2></div>
+            <div class="carousel-heading"><h2>Peinados<br>y<br><span class="script">Barbería</span></h2></div>
           </article>
         </div>
 
         <div class="swiper-slide">
           <article class="carousel-container" style="background-image:url('assets/img/fondo-2.webp')">
-            <div class="carousel-heading"><h2>Pestañas<br>y<br>cejas</h2></div>
+            <div class="carousel-heading"><h2>Pestañas<br>y<br><span class="script">Cejas</span></h2></div>
           </article>
         </div>
 
@@ -282,7 +282,7 @@
 <!-- ============ 7. STYLE BOOK / REDES ============ -->
 <section class="gallery-section" id="stylebook">
   <div class="gallery-h2">
-    <h2>Nuestro Style Book</h2>
+    <h2>Nuestro Style <span class="script">Book</span></h2>
   </div>
 
   <div class="gallery-grid">
@@ -319,7 +319,7 @@
   <img class="testimonial-bg-icon" src="assets/img/logo.webp" alt="" aria-hidden="true">
 
   <div class="testimonial-h2">
-    <h2>Lo que dicen<br>nuestras clientas</h2>
+    <h2>Lo que dicen<br>nuestras <span class="script">Clientas</span></h2>
   </div>
 
   <div class="testimonial-wrapper" style="--x:8%">
@@ -426,7 +426,11 @@
       <div class="steps" id="bkSteps"><i class="on"></i><i></i><i></i><i></i></div>
       <button class="close" data-close-modal aria-label="Cerrar">&times;</button>
     </div>
-    <div class="sheet-body" id="bkBody"></div>
+    <!-- data-lenis-prevent: Lenis cancela wheel y touchmove sobre toda la
+         ventana, y lo sigue haciendo aunque se le llame stop() al abrir el
+         modal. Sin este atributo el contenido del modal no se puede scrollear
+         ni con rueda ni con el dedo. -->
+    <div class="sheet-body" id="bkBody" data-lenis-prevent></div>
     <div class="sheet-foot" id="bkFoot">
       <button class="btn btn-quiet" id="bkBack">Atrás</button>
       <div id="bkSummary"></div>
