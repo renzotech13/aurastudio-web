@@ -63,6 +63,10 @@
   const state = {
     step: 1,
     categorias: [], servicios: [], cargandoCatalogo: true,
+    // Sede y profesional: el orden sede -> servicio -> profesional es el mismo
+    // que el salón ya usa en Yocale, y el que pidió el cliente.
+    sedes: [], sedeId: null, cargandoSedes: true,
+    profesionales: [], profesionalId: null, profesionalElegido: false, cargandoEquipo: false, equipoError: false,
     filtro: "todos", serviceIds: [],
     dayOffset: 0, dateIdx: null, time: null, firstVisit: null,
     nombre: "", telefono: "", comentario: "",
@@ -85,6 +89,40 @@
     state.cargandoCatalogo = false;
   }
 
+  async function cargarSedes() {
+    try {
+      const res = await fetch(`${BOT_API_URL}/public/sedes`);
+      state.sedes = res.ok ? await res.json() : [];
+    } catch (_) {
+      state.sedes = [];
+    }
+    // Con una sola sede activa no tiene sentido hacer elegir: se salta el paso.
+    if (state.sedes.length === 1) state.sedeId = state.sedes[0].id;
+    state.cargandoSedes = false;
+    render();
+  }
+
+  /** Quiénes hacen TODOS los servicios elegidos en la sede elegida. */
+  async function cargarEquipo() {
+    if (!state.sedeId || !state.serviceIds.length) return;
+    state.cargandoEquipo = true;
+    state.equipoError = false;
+    render();
+    try {
+      const url = `${BOT_API_URL}/public/equipo`
+        + `?sede_id=${encodeURIComponent(state.sedeId)}`
+        + `&servicio_ids=${encodeURIComponent(state.serviceIds.join(","))}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("equipo");
+      state.profesionales = await res.json();
+    } catch (_) {
+      state.profesionales = [];
+      state.equipoError = true;
+    }
+    state.cargandoEquipo = false;
+    render();
+  }
+
   async function cargarDisponibilidad() {
     if (!state.serviceIds.length) return;
     state.dispLoading = true;
@@ -96,6 +134,8 @@
     try {
       const url = `${BOT_API_URL}/public/disponibilidad`
         + `?servicio_ids=${encodeURIComponent(state.serviceIds.join(","))}`
+        + (state.sedeId ? `&sede_id=${encodeURIComponent(state.sedeId)}` : "")
+        + (state.profesionalId ? `&profesional_id=${encodeURIComponent(state.profesionalId)}` : "")
         + `&fecha_desde=${desde}&fecha_hasta=${hasta}`;
       const res = await fetch(url);
       if (!res.ok) throw new Error("bad_status");
@@ -126,7 +166,13 @@
           nombre: state.nombre.trim(),
           telefono: normalizarTelefono(state.telefono.trim()),
           primera_visita: state.firstVisit === "si" ? true : state.firstVisit === "no" ? false : null,
-          comentario: state.comentario || undefined
+          comentario: state.comentario || undefined,
+          sede_id: state.sedeId,
+          // null a propósito = "cualquier profesional": el bot elige una
+          // concreta y la guarda (una cita sin profesional no chocaría con
+          // ninguna otra).
+          profesional_id: state.profesionalId
+
         })
       });
       if (res.status === 409) {
@@ -198,12 +244,91 @@
       : "Hola, quisiera agendar una cita en Aura Studio");
     return `https://wa.me/${WA_NUMERO}?text=${encodeURIComponent(texto)}`;
   }
+  function nombreSede() {
+    const sd = state.sedes.find((x) => x.id === state.sedeId);
+    return sd ? sd.nombre : "—";
+  }
+
+  function nombreProfesional() {
+    if (!state.profesionalId) return "Cualquier profesional";
+    const p = state.profesionales.find((x) => x.id === state.profesionalId);
+    return p ? p.nombre : "Cualquier profesional";
+  }
+
   function precio(p) {
     const n = parseFloat(p);
     return isNaN(n) ? "Consultar" : "S/ " + n;
   }
 
   /* ------------------------------ pasos ------------------------------ */
+  function pasoSede() {
+    if (state.cargandoSedes) return '<p class="loading">Cargando los locales…</p>';
+    if (!state.sedes.length) {
+      return `
+        <h2 class="bk-h">¿En qué local?</h2>
+        <div class="alert" style="margin-top:16px">No pudimos cargar los locales.
+          <a href="${waLink()}" target="_blank" rel="noopener">Reservar por WhatsApp</a></div>`;
+    }
+    const tarjetas = state.sedes.map((sd) => `
+      <button class="sede-card${state.sedeId === sd.id ? " on" : ""}" data-sede="${esc(sd.id)}">
+        <span class="sede-nombre">${esc(sd.nombre)}</span>
+        <span class="sede-dir">${esc(sd.direccion)}</span>
+      </button>`).join("");
+    return `
+      <h2 class="bk-h">¿En qué local?</h2>
+      <p class="bk-sub">Cada local tiene su propio equipo y su propia agenda.</p>
+      <div class="sede-grid">${tarjetas}</div>`;
+  }
+
+  function iniciales(nombre) {
+    return nombre.split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join("").toUpperCase();
+  }
+
+  function pasoProfesional() {
+    if (state.cargandoEquipo) return '<p class="loading">Viendo quién atiende esto…</p>';
+
+    if (state.equipoError) {
+      return `
+        <h2 class="bk-h">¿Con quién?</h2>
+        <div class="alert" style="margin-top:16px">No pudimos cargar el equipo.
+          <a href="${waLink()}" target="_blank" rel="noopener">Reservar por WhatsApp</a></div>`;
+    }
+
+    // Nadie en esa sede hace TODOS los servicios elegidos a la vez. Decirlo
+    // claro y ofrecer la salida, en vez de mostrar una lista vacía.
+    if (!state.profesionales.length) {
+      const sede = state.sedes.find((x) => x.id === state.sedeId);
+      return `
+        <h2 class="bk-h">¿Con quién?</h2>
+        <div class="alert" style="margin-top:16px">
+          En ${esc(sede ? sede.nombre : "este local")} no hay una sola profesional que haga todo lo que elegiste
+          en una misma cita. Puedes volver atrás y dejar menos servicios, cambiar de local,
+          o <a href="${waLink()}" target="_blank" rel="noopener">escribirnos por WhatsApp</a> para separarlos en dos citas.
+        </div>`;
+    }
+
+    const cualquiera = `
+      <button class="prof-card${state.profesionalElegido && state.profesionalId === null ? " on" : ""}" data-prof="">
+        <span class="prof-foto prof-any" aria-hidden="true">✦</span>
+        <span class="prof-nombre">Cualquier profesional</span>
+        <span class="prof-rol">La primera disponible</span>
+      </button>`;
+
+    const tarjetas = state.profesionales.map((p) => `
+      <button class="prof-card${state.profesionalId === p.id ? " on" : ""}" data-prof="${esc(p.id)}">
+        <span class="prof-foto">${p.foto_url
+          ? `<img src="${esc(p.foto_url)}" alt="">`
+          : `<span class="prof-ini">${esc(iniciales(p.nombre))}</span>`}</span>
+        <span class="prof-nombre">${esc(p.nombre)}</span>
+        <span class="prof-rol">${esc(p.rol || "Estilista")}</span>
+      </button>`).join("");
+
+    return `
+      <h2 class="bk-h">¿Con quién?</h2>
+      <p class="bk-sub">Solo aparecen quienes hacen todo lo que elegiste.</p>
+      <div class="prof-grid">${cualquiera}${tarjetas}</div>`;
+  }
+
   function paso1() {
     if (state.cargandoCatalogo) return '<p class="loading">Cargando la carta…</p>';
 
@@ -284,27 +409,18 @@
       ${horasHtml}`;
   }
 
-  function paso3() {
-    return `
-      <h2 class="bk-h">Cuéntanos</h2>
-      <p class="bk-sub">¿Es tu primera vez en Aura Studio?</p>
-      <div class="pick" style="margin:18px 0 28px">
-        <button data-visita="si" class="${state.firstVisit === "si" ? "on" : ""}">Sí, primera vez</button>
-        <button data-visita="no" class="${state.firstVisit === "no" ? "on" : ""}">Ya vine antes</button>
-      </div>
-      <div class="field">
-        <label for="bkComentario">¿Algo que debamos saber? (opcional)</label>
-        <textarea id="bkComentario" rows="4" placeholder="Ej. tengo el cabello teñido, soy alérgica a…">${esc(state.comentario)}</textarea>
-      </div>`;
-  }
-
-  function paso4() {
+  function pasoDatos() {
     const days = getDays();
     const fecha = state.dateIdx != null ? days[state.dateIdx] : null;
     const servicios = serviciosElegidos();
     return `
       <h2 class="bk-h">Tus datos</h2>
       <p class="bk-sub">Te confirmamos la cita por WhatsApp.</p>
+      <p class="bk-sub" style="margin-top:18px">¿Es tu primera vez en Aura Studio?</p>
+      <div class="pick" style="margin:10px 0 2px">
+        <button data-visita="si" class="${state.firstVisit === "si" ? "on" : ""}">Sí, primera vez</button>
+        <button data-visita="no" class="${state.firstVisit === "no" ? "on" : ""}">Ya vine antes</button>
+      </div>
       ${state.error ? `<div class="alert" style="margin-top:16px">${esc(state.error)}
         <a href="${waLink()}" target="_blank" rel="noopener">Reservar por WhatsApp</a></div>` : ""}
       <div style="display:flex;gap:28px;flex-wrap:wrap;margin-top:22px">
@@ -317,6 +433,10 @@
             <label for="bkTelefono">WhatsApp</label>
             <input id="bkTelefono" type="tel" inputmode="numeric" autocomplete="tel" value="${esc(state.telefono)}" placeholder="987 654 321">
           </div>
+          <div class="field">
+            <label for="bkComentario">¿Algo que debamos saber? (opcional)</label>
+            <textarea id="bkComentario" rows="3" placeholder="Ej. tengo el cabello teñido, soy alérgica a…">${esc(state.comentario)}</textarea>
+          </div>
         </div>
         <div style="flex:1;min-width:260px">
           <div class="resume">
@@ -324,6 +444,8 @@
             <div class="r"><span>Duración</span><span>${esc(fmtDur(duracionTotal()))}</span></div>
             <div class="r"><span>Fecha</span><span>${fecha ? `${WEEKDAYS[fecha.getDay()]} ${fecha.getDate()} ${MONTHS[fecha.getMonth()]}` : "—"}</span></div>
             <div class="r"><span>Hora</span><span>${esc(state.time || "—")}</span></div>
+            <div class="r"><span>Local</span><span>${esc(nombreSede())}</span></div>
+            <div class="r"><span>Profesional</span><span>${esc(nombreProfesional())}</span></div>
             <div class="r tot"><span>Total</span><span>S/ ${total()}</span></div>
           </div>
           <p class="bk-sub" style="margin-top:12px;font-size:12.5px">Si necesitas cancelar, avísanos con anticipación por WhatsApp.</p>
@@ -352,16 +474,46 @@
   }
 
   /* ------------------------------ render ------------------------------ */
+  /**
+   * Los pasos no son fijos: si solo hay un local activo, elegirlo no aporta
+   * nada y se salta. Todo lo demás (avance, barra de progreso, texto del
+   * botón) se deriva de esta lista en vez de números sueltos, para que
+   * saltarse un paso no descoloque al resto.
+   */
+  function pasosActivos() {
+    const p = [];
+    if (state.sedes.length > 1) p.push("sede");
+    return p.concat(["servicio", "profesional", "fecha", "datos"]);
+  }
+
+  function pasoActual() {
+    return pasosActivos()[state.step - 1];
+  }
+
+  const PANTALLAS = {
+    sede: pasoSede,
+    servicio: paso1,
+    profesional: pasoProfesional,
+    fecha: paso2,
+    datos: pasoDatos,
+  };
+
   function puedeAvanzar() {
-    if (state.step === 1) return state.serviceIds.length > 0;
-    if (state.step === 2) return state.dateIdx != null && !!state.time;
-    if (state.step === 3) return !!state.firstVisit;
-    if (state.step === 4) {
-      return state.nombre.trim().length > 1
-        && state.telefono.replace(/\D/g, "").length >= 6
-        && !state.enviando;
+    switch (pasoActual()) {
+      case "sede": return !!state.sedeId;
+      case "servicio": return state.serviceIds.length > 0;
+      case "profesional":
+        // "Cualquier profesional" es null, así que no basta con truthy: lo que
+        // se exige es que haya equipo posible y que ya se haya elegido algo.
+        return state.profesionales.length > 0 && state.profesionalElegido;
+      case "fecha": return state.dateIdx != null && !!state.time;
+      case "datos":
+        return !!state.firstVisit
+          && state.nombre.trim().length > 1
+          && state.telefono.replace(/\D/g, "").length >= 6
+          && !state.enviando;
+      default: return false;
     }
-    return false;
   }
 
   function render() {
@@ -372,13 +524,16 @@
       return;
     }
     foot.style.display = "";
-    stepsEl.innerHTML = [1, 2, 3, 4].map((n) => `<i class="${n <= state.step ? "on" : ""}"></i>`).join("");
-    body.innerHTML = [paso1, paso2, paso3, paso4][state.step - 1]();
+    const pasos = pasosActivos();
+    stepsEl.innerHTML = pasos.map((_, i) => `<i class="${i + 1 <= state.step ? "on" : ""}"></i>`).join("");
+    body.innerHTML = (PANTALLAS[pasoActual()] || paso1)();
     body.scrollTop = 0;
 
     backBtn.style.visibility = state.step === 1 ? "hidden" : "visible";
     nextBtn.disabled = !puedeAvanzar();
-    nextBtn.textContent = state.enviando ? "Enviando…" : state.step === 4 ? "Confirmar cita" : "Continuar";
+    nextBtn.textContent = state.enviando
+      ? "Enviando…"
+      : state.step === pasos.length ? "Confirmar cita" : "Continuar";
 
     const n = state.serviceIds.length;
     summaryEl.textContent = n
@@ -397,6 +552,29 @@
       state.serviceIds = state.serviceIds.includes(id)
         ? state.serviceIds.filter((x) => x !== id)
         : state.serviceIds.concat(id);
+      // Quién puede atender depende de los servicios elegidos: la elección
+      // anterior deja de ser válida.
+      state.profesionalId = null; state.profesionalElegido = false; state.profesionales = [];
+      render();
+      return;
+    }
+
+    const sede = e.target.closest("[data-sede]");
+    if (sede) {
+      if (state.sedeId !== sede.dataset.sede) {
+        state.sedeId = sede.dataset.sede;
+        // Los equipos no se cruzan entre locales: cambiar de sede invalida a
+        // quien se hubiera elegido.
+        state.profesionalId = null; state.profesionalElegido = false; state.profesionales = [];
+      }
+      render();
+      return;
+    }
+
+    const prof = e.target.closest("[data-prof]");
+    if (prof) {
+      state.profesionalId = prof.dataset.prof || null;
+      state.profesionalElegido = true;
       render();
       return;
     }
@@ -439,10 +617,16 @@
 
   nextBtn.addEventListener("click", () => {
     if (!puedeAvanzar()) return;
-    if (state.step === 1) { state.step = 2; render(); cargarDisponibilidad(); return; }
-    if (state.step === 4) { enviarReserva(); return; }
+    const pasos = pasosActivos();
+    if (state.step === pasos.length) { enviarReserva(); return; }
+
+    const siguiente = pasos[state.step];
     state.step += 1;
     render();
+    // Cada paso pide sus datos al entrar: el equipo depende de los servicios
+    // elegidos, y la agenda depende del equipo.
+    if (siguiente === "profesional") cargarEquipo();
+    if (siguiente === "fecha") cargarDisponibilidad();
   });
 
   /* ------------------------------ apertura ------------------------------ */
@@ -451,6 +635,8 @@
       state.confirmada = false;
       state.step = 1; state.serviceIds = []; state.dateIdx = null; state.time = null;
       state.firstVisit = null; state.comentario = ""; state.error = null;
+      state.profesionalId = null; state.profesionalElegido = false; state.profesionales = [];
+      if (state.sedes.length > 1) state.sedeId = null;
     }
     // Solo se preselecciona lo que existe en el catálogo real: el bot valida
     // los ids contra su tabla `services` y rechaza lo que no reconoce.
@@ -465,6 +651,10 @@
     const d = e.detail || {};
     abrir(d.servicios || (d.servicio ? [d.servicio] : []));
   });
+
+  // Las sedes se piden al bot al cargar la página, no al abrir el modal: así
+  // el primer paso ya está resuelto cuando la clienta pulsa "Reservar".
+  cargarSedes();
 
   cargarCatalogo().then(() => {
     const params = new URLSearchParams(location.search);

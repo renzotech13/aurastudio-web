@@ -815,3 +815,39 @@ body.is-locked{overflow:hidden;}
   .days .day{width:66px;}
   #bkSummary{display:none;}
 }
+
+/* ---------- Paso 1: sede ---------- */
+.sede-grid{display:grid;gap:12px;margin-top:22px;}
+.sede-card{
+  display:flex;flex-direction:column;gap:5px;text-align:left;width:100%;
+  padding:16px 18px;border:1px solid rgba(200,145,22,.28);border-radius:16px;
+  background:#fff;cursor:pointer;transition:border-color .3s var(--ease),background .3s var(--ease);
+}
+.sede-card:hover{border-color:var(--gold);}
+.sede-card.on{border-color:var(--gold);background:rgba(200,145,22,.08);}
+.sede-nombre{font-family:var(--serif);font-size:17px;color:var(--brown);}
+.sede-dir{font-size:12.5px;color:rgba(92,58,35,.68);line-height:1.45;}
+
+/* ---------- Paso 3: profesional ---------- */
+.prof-grid{
+  display:grid;gap:12px;margin-top:22px;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+}
+.prof-card{
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  padding:18px 12px 15px;border:1px solid rgba(200,145,22,.28);border-radius:16px;
+  background:#fff;cursor:pointer;text-align:center;
+  transition:border-color .3s var(--ease),background .3s var(--ease);
+}
+.prof-card:hover{border-color:var(--gold);}
+.prof-card.on{border-color:var(--gold);background:rgba(200,145,22,.08);}
+.prof-foto{
+  width:62px;height:62px;border-radius:50%;overflow:hidden;flex:none;
+  display:grid;place-items:center;background:rgba(200,145,22,.12);
+  border:1px solid rgba(200,145,22,.3);
+}
+.prof-foto img{width:100%;height:100%;object-fit:cover;display:block;}
+.prof-ini{font-family:var(--serif);font-size:20px;color:var(--gold-deep);letter-spacing:.02em;}
+.prof-any{font-size:22px;color:var(--gold-deep);}
+.prof-nombre{font-family:var(--serif);font-size:14.5px;color:var(--brown);line-height:1.25;}
+.prof-rol{font-size:11.5px;color:rgba(92,58,35,.6);}
