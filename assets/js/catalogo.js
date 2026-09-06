@@ -6,51 +6,54 @@
    Solo se usa cuando el catálogo real de Supabase no responde. El bot valida
    los `servicio_ids` contra su tabla `services`, así que estos ids deben ser
    exactamente los mismos que los de la migración.
+
+   "icon" guarda el nombre del ícono de Lucide (no un emoji): booking.js lo
+   busca en CATEGORY_ICONS para dibujar el trazo SVG. Ver migración 0013.
    ========================================================================= */
 window.AURA_CATEGORIAS = [
   {
     "id": "cabello",
-    "icon": "✂️",
+    "icon": "Scissors",
     "titulo": "Cabello"
   },
   {
     "id": "color",
-    "icon": "🎨",
+    "icon": "Palette",
     "titulo": "Color"
   },
   {
     "id": "manicure",
-    "icon": "💅",
+    "icon": "Hand",
     "titulo": "Manicure y uñas"
   },
   {
     "id": "pies",
-    "icon": "🦶",
+    "icon": "Footprints",
     "titulo": "Pedicure y pies"
   },
   {
     "id": "pestanas",
-    "icon": "👁️",
+    "icon": "Eye",
     "titulo": "Pestañas y extensiones"
   },
   {
     "id": "cejas",
-    "icon": "🪶",
+    "icon": "Feather",
     "titulo": "Cejas"
   },
   {
     "id": "facial",
-    "icon": "🧖",
+    "icon": "Sparkles",
     "titulo": "Faciales"
   },
   {
     "id": "maquillaje",
-    "icon": "💄",
+    "icon": "Paintbrush",
     "titulo": "Maquillaje"
   },
   {
     "id": "depilacion",
-    "icon": "🌿",
+    "icon": "Leaf",
     "titulo": "Depilación y visajismo"
   }
 ];
