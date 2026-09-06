@@ -1,0 +1,96 @@
+/* ==========================================================================
+   AURA STUDIO — páginas legales (Aviso, Privacidad, Cookies, Términos,
+   Contratación, Cancelación, No discriminación, Accesibilidad).
+
+   Mismos tokens de marca que style.css (se importa antes que este archivo).
+   Sin Lenis/GSAP/Swiper: son páginas de texto, con scroll nativo suave.
+   ========================================================================== */
+
+html{scroll-behavior:smooth;}
+
+/* El header no tiene video detrás en estas páginas: se deja siempre
+   "scrolled" (fondo sólido) en vez de transparente. */
+.legal-page{padding-top:clamp(96px,13vw,132px);}
+
+.legal-hero{
+  width:min(760px,90vw);margin:0 auto clamp(34px,4.4vw,54px);
+  text-align:left;
+}
+.legal-back{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep);
+  margin-bottom:clamp(18px,2.6vw,28px);
+}
+.legal-back:hover{color:var(--gold);}
+.legal-hero h1{
+  font-family:var(--serif);color:var(--brown);text-transform:uppercase;
+  font-size:clamp(1.7rem,4vw,2.7rem);line-height:1.15;letter-spacing:-.012em;
+}
+.legal-updated{
+  margin-top:12px;font-size:12.5px;color:rgba(92,58,35,.62);
+  font-style:italic;
+}
+
+.legal-content{
+  width:min(760px,90vw);margin:0 auto;
+  padding-bottom:clamp(50px,6vw,80px);
+  border-bottom:1px solid var(--taupe);
+}
+.legal-content h2{
+  font-family:var(--serif);color:var(--brown);
+  font-size:clamp(1.05rem,1.7vw,1.3rem);line-height:1.35;letter-spacing:-.005em;
+  margin:clamp(36px,4vw,48px) 0 14px;
+}
+.legal-content > section:first-child h2{margin-top:0;}
+.legal-content h3{
+  font-family:var(--sans);color:var(--gold-deep);font-weight:500;
+  font-size:13px;letter-spacing:.04em;
+  margin:22px 0 8px;
+}
+.legal-content p{color:var(--ink);font-size:14.5px;line-height:1.85;font-weight:300;}
+.legal-content p + p{margin-top:14px;}
+.legal-content ul,.legal-content ol{
+  margin:14px 0 0;padding-left:22px;color:var(--ink);font-size:14.5px;line-height:1.85;font-weight:300;
+}
+.legal-content li + li{margin-top:6px;}
+.legal-content li::marker{color:var(--gold-deep);}
+.legal-content a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:2px;}
+.legal-content a:hover{color:var(--brown);}
+.legal-content strong{font-weight:500;color:var(--brown);}
+
+/* Aviso de dato pendiente de completar por el negocio (RUC, domicilio
+   fiscal…): visible pero sin alarmar — mismo lenguaje visual de marca. */
+.legal-content [data-pendiente]{
+  background:var(--cream-2);
+  border-left:2px solid var(--gold);
+}
+.legal-note{
+  background:var(--cream-2);border-left:2px solid var(--gold);
+  padding:14px 18px;margin-top:16px;
+  font-size:13.5px;line-height:1.75;color:var(--brown);
+}
+.legal-note strong{color:var(--gold-deep);}
+
+.legal-crosslinks{
+  width:min(760px,90vw);margin:clamp(30px,4vw,42px) auto 0;
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;
+}
+.legal-crosslinks-label{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(92,58,35,.55);
+  width:100%;margin-bottom:2px;
+}
+.legal-crosslinks a{
+  font-size:12px;letter-spacing:.02em;color:var(--brown);
+  border:1px solid var(--taupe);border-radius:30px;padding:7px 16px;
+  transition:border-color .35s var(--ease),color .35s var(--ease);
+}
+.legal-crosslinks a:hover{border-color:var(--gold);color:var(--gold-deep);}
+.legal-crosslinks a[aria-current]{
+  border-color:var(--gold);color:var(--gold-deep);background:var(--cream-2);
+}
+
+.footer-legal a[aria-current]{color:var(--gold-soft);}
+
+@media (max-width:600px){
+  .legal-content h2{font-size:1.05rem;}
+}
