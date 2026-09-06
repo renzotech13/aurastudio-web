@@ -24,7 +24,7 @@ html{scroll-behavior:smooth;}
 .legal-back:hover{color:var(--gold);}
 .legal-hero h1{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.7rem,4vw,2.7rem);line-height:1.15;letter-spacing:-.012em;
+  font-size:clamp(1.7rem,4vw,2.7rem);line-height:1.15;letter-spacing:.045em;
 }
 .legal-updated{
   margin-top:12px;font-size:12.5px;color:rgba(92,58,35,.62);

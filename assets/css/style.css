@@ -18,7 +18,8 @@
   --ink:#222222;
   --white:#ffffff;
 
-  --serif:'Libre Baskerville', 'Times New Roman', Georgia, serif;
+  --serif:'Cormorant', 'Times New Roman', Georgia, serif;
+  --script:'Alex Brush', 'Brush Script MT', cursive;
   --sans:'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --shell:min(1320px, 92vw);
@@ -56,6 +57,23 @@ html.lenis,html.lenis body{height:auto;}
 
 /* ---------- Tipografía display ---------- */
 .display{font-family:var(--serif);font-weight:400;text-transform:uppercase;}
+
+/* Acento en script: la palabra que remata un titular de marca, al estilo
+   "ESTRATEGIA Digital" — versalitas serif + una palabra suelta en caligrafía.
+   Se usa con moderación, solo en los 4 titulares que son declaración de
+   marca (hero, «La belleza…», «Cada detalle…», «Vive tu experiencia Aura»),
+   nunca en títulos funcionales (Contáctanos, nombres de servicio, etc.). */
+.script{
+  font-family:var(--script);
+  text-transform:none;
+  font-weight:400;
+  letter-spacing:0;
+  font-size:1.3em;
+  line-height:1;
+  display:inline-block;
+  color:var(--gold-soft);
+}
+.radius-heading .script,.home-scroll-h2 .script,.home-text-h2 .script{color:var(--gold-deep);}
 
 /* ---------- Botones ---------- */
 .btn{
@@ -165,7 +183,7 @@ html.lenis,html.lenis body{height:auto;}
 .hero-heading h1{
   font-family:var(--serif);color:var(--white);text-transform:uppercase;
   font-size:clamp(2.05rem,5.4vw,4.5rem);
-  line-height:1.1;letter-spacing:-.012em;
+  line-height:1.1;letter-spacing:.045em;
   text-shadow:0 2px 30px rgba(0,0,0,.35);
 }
 .hero-heading .t-desk{display:block;}
@@ -195,7 +213,7 @@ html.lenis,html.lenis body{height:auto;}
 .radius-heading{margin-top:clamp(12px,1.6vw,22px);}
 .radius-heading h2{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.75rem,4.2vw,3.4rem);line-height:1.12;letter-spacing:-.01em;
+  font-size:clamp(1.75rem,4.2vw,3.4rem);line-height:1.12;letter-spacing:.045em;
 }
 
 .radius-img-container{
@@ -231,7 +249,7 @@ html.lenis,html.lenis body{height:auto;}
 .section-head{width:var(--shell);margin:0 auto clamp(38px,5vw,64px);}
 .home-carousel-h2 h2{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.65rem,3.9vw,3.15rem);line-height:1.14;letter-spacing:-.012em;
+  font-size:clamp(1.65rem,3.9vw,3.15rem);line-height:1.14;letter-spacing:.045em;
 }
 .home-carousel-h3{margin-top:14px;}
 .home-carousel-h3 h3{
@@ -255,7 +273,7 @@ html.lenis,html.lenis body{height:auto;}
 .carousel-heading{position:relative;z-index:2;text-align:left;}
 .carousel-heading h2{
   font-family:var(--serif);color:var(--white);text-transform:uppercase;
-  font-size:clamp(1.35rem,2.4vw,2.3rem);line-height:1.08;letter-spacing:-.015em;
+  font-size:clamp(1.35rem,2.4vw,2.3rem);line-height:1.08;letter-spacing:.035em;
 }
 .carousel-nav{display:flex;justify-content:center;gap:14px;margin-top:clamp(24px,3vw,38px);}
 .carousel-nav button{
@@ -276,7 +294,7 @@ html.lenis,html.lenis body{height:auto;}
 }
 .promos-h2 h2{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.7rem,4vw,3.2rem);line-height:1.13;letter-spacing:-.012em;
+  font-size:clamp(1.7rem,4vw,3.2rem);line-height:1.13;letter-spacing:.045em;
 }
 .promos-intro{margin-top:18px;}
 .promos-intro p{
@@ -318,7 +336,7 @@ html.lenis,html.lenis body{height:auto;}
 }
 .promo-body h3{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.05rem,1.5vw,1.3rem);line-height:1.2;letter-spacing:-.005em;
+  font-size:clamp(1.05rem,1.5vw,1.3rem);line-height:1.2;letter-spacing:.035em;
 }
 .promo-body p{
   color:var(--ink);font-size:14px;line-height:1.75;font-weight:300;
@@ -342,7 +360,7 @@ html.lenis,html.lenis body{height:auto;}
 }
 .vales-copy h3{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.15rem,1.9vw,1.6rem);line-height:1.2;
+  font-size:clamp(1.15rem,1.9vw,1.6rem);line-height:1.2;letter-spacing:.035em;
 }
 .vales-copy p{color:var(--ink);font-size:14.5px;line-height:1.75;font-weight:300;}
 
@@ -381,7 +399,7 @@ html.lenis,html.lenis body{height:auto;}
 .scroll-copy{position:relative;z-index:3;text-align:center;max-width:min(700px,88vw);padding:0 20px;}
 .home-scroll-h2 h2{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.8rem,4.3vw,3.4rem);line-height:1.12;letter-spacing:-.012em;
+  font-size:clamp(1.8rem,4.3vw,3.4rem);line-height:1.12;letter-spacing:.045em;
 }
 .home-scroll-p{margin-top:18px;}
 .home-scroll-p p{color:var(--brown);font-size:clamp(14px,1.1vw,15.5px);line-height:1.8;}
@@ -409,7 +427,7 @@ html.lenis,html.lenis body{height:auto;}
 }
 .home-text-h2 h2{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.7rem,4vw,3.2rem);line-height:1.13;letter-spacing:-.012em;
+  font-size:clamp(1.7rem,4vw,3.2rem);line-height:1.13;letter-spacing:.045em;
 }
 .home-text-p{margin-top:20px;}
 .home-text-p p{color:var(--brown);font-size:clamp(14px,1.1vw,15.5px);line-height:1.8;}
@@ -425,7 +443,7 @@ html.lenis,html.lenis body{height:auto;}
 }
 .gallery-h2 h2{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.7rem,4vw,3.2rem);line-height:1.13;letter-spacing:-.012em;
+  font-size:clamp(1.7rem,4vw,3.2rem);line-height:1.13;letter-spacing:.045em;
 }
 .gallery-grid{
   width:var(--shell);margin:clamp(38px,5vw,60px) auto 0;
@@ -461,7 +479,7 @@ html.lenis,html.lenis body{height:auto;}
 .testimonial-h2{position:relative;z-index:3;text-align:center;padding:0 20px;}
 .testimonial-h2 h2{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.8rem,4.3vw,3.4rem);line-height:1.12;letter-spacing:-.012em;
+  font-size:clamp(1.8rem,4.3vw,3.4rem);line-height:1.12;letter-spacing:.045em;
 }
 .testimonial-wrapper{
   position:absolute;top:0;left:var(--x);
@@ -611,7 +629,7 @@ html.lenis,html.lenis body{height:auto;}
 /* ==========================================================================
    MODAL DE RESERVA
    Misma estructura e interacción que la referencia, con la piel de Aura:
-   arcos, dorado de marca, Libre Baskerville para títulos y Poppins para texto.
+   arcos, dorado de marca, Cormorant para títulos y Poppins para texto.
    ========================================================================== */
 .modal{
   position:fixed;inset:0;z-index:950;
@@ -670,7 +688,7 @@ body.is-locked{overflow:hidden;}
 /* títulos dentro del modal */
 .bk-h{
   font-family:var(--serif);color:var(--brown);text-transform:uppercase;
-  font-size:clamp(1.35rem,2.8vw,2.1rem);line-height:1.14;letter-spacing:-.012em;
+  font-size:clamp(1.35rem,2.8vw,2.1rem);line-height:1.14;letter-spacing:.035em;
   margin-bottom:6px;
 }
 .bk-sub{color:rgba(92,58,35,.72);font-size:14px;line-height:1.65;}
