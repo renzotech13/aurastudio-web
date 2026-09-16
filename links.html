@@ -2,366 +2,517 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Aura Studio · Enlaces</title>
-<meta name="description" content="Agenda tu cita, mira nuestras promociones y encuéntranos en redes. Aura Studio, salón de belleza en Los Olivos e Independencia, Lima.">
+<meta name="description" content="Reserva tu cita, mira la carta con precios, nuestras promociones y cómo llegar. Aura Studio, salón de belleza en Los Olivos e Independencia, Lima.">
 <meta name="robots" content="index, follow">
+<meta name="theme-color" content="#2A1A10">
 <link rel="icon" href="assets/img/logo.webp">
 
-<!-- Open Graph: esta página se comparte desde la bio de Instagram y TikTok,
+<!-- Open Graph: esta página se abre desde la bio de Instagram y TikTok,
      así que la miniatura importa más que en el resto del sitio. -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Aura Studio · Enlaces">
-<meta property="og:description" content="Agenda tu cita, promociones y vales de regalo.">
+<meta property="og:description" content="Reserva tu cita, la carta con precios y cómo llegar a cada sede.">
 <meta property="og:image" content="https://aurastudio.pe/assets/img/promo-hair-revival.webp">
 <meta property="og:url" content="https://aurastudio.pe/links">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Alex+Brush&family=Poppins:wght@200;300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600&family=Alex+Brush&family=Poppins:wght@300;400;500&display=swap">
 
 <style>
   /* Hoja aparte y no style.css: esta página se abre desde la bio de una red
-     social, casi siempre con datos móviles. Cargar los ~80 KB de CSS del
-     sitio (con GSAP, Swiper y el resto) para pintar seis botones sería
-     pagarlo en tiempo de carga justo donde más caro sale. */
+     social, casi siempre con datos móviles. Cargar los ~80 KB de CSS del sitio
+     (con GSAP, Swiper y el resto) para pintar unos enlaces sería pagarlo en
+     tiempo de carga justo donde más caro sale.
+
+     Tema único a propósito: se comparte como la "portada" de la marca en redes
+     y debe verse igual para todos, así que no sigue el tema del sistema.
+     Todos los colores van pintados explícitamente. */
   :root{
+    --noche:#2A1A10;
+    --brasa:#3E2717;
+    --brasa-2:#4A2F1C;
+    --borde:#5C3A23;
     --gold:#C89116;
-    --gold-deep:#A8790F;
     --gold-soft:#DCB55C;
-    --brown:#5C3A23;
-    --brown-deep:#3A2415;
-    --cream:#E7E2D5;
-    --cream-2:#F2EEE6;
+    --gold-tenue:rgba(200,145,22,.16);
+    --crema:#F2EEE6;
+    --crema-2:#C6B6A0;
+    --abierto:#8FB566;
+    --cerrado:#C98A6A;
     --serif:'Cormorant','Times New Roman',Georgia,serif;
     --script:'Alex Brush','Brush Script MT',cursive;
     --sans:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    --ease:cubic-bezier(.22,.61,.36,1);
   }
 
-  *,*::before,*::after{box-sizing:border-box;}
-  html{-webkit-text-size-adjust:100%;}
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
   body{
     margin:0;
     min-height:100svh;
+    overflow-x:hidden;
     font-family:var(--sans);
     font-weight:300;
-    color:var(--cream-2);
-    background:var(--brown-deep);
+    font-size:15px;
+    line-height:1.5;
+    color:var(--crema);
+    background:var(--noche);
     -webkit-font-smoothing:antialiased;
   }
-  a{color:inherit;text-decoration:none;}
-  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  button{font:inherit;color:inherit;background:none;border:0}
+  :focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px;border-radius:4px}
 
-  /* Fondo: la foto del hero, muy velada para que el texto encima siempre
-     tenga contraste suficiente sin depender de qué zona de la imagen toque. */
+  /* Fondo: la foto del hero, muy velada, para que el texto encima tenga
+     contraste suficiente sin depender de qué zona de la imagen toque. */
   .fondo{
-    position:fixed;inset:0;z-index:0;
-    background:url('assets/img/hero-bg.webp') center/cover no-repeat;
-    opacity:.28;
-  }
-  .velo{
-    position:fixed;inset:0;z-index:1;
-    background:linear-gradient(180deg,rgba(58,36,21,.86) 0%,rgba(28,17,9,.94) 60%,rgba(20,12,6,.97) 100%);
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 50% 0%, rgba(200,145,22,.13), transparent 60%),
+      linear-gradient(180deg, rgba(42,26,16,.86) 0%, rgba(42,26,16,.96) 45%, var(--noche) 100%),
+      url('assets/img/hero-bg.webp') center/cover no-repeat;
   }
 
-  .shell{
-    position:relative;z-index:2;
-    width:min(520px,92vw);
-    margin-inline:auto;
-    padding:clamp(34px,7vh,64px) 0 48px;
-    display:flex;flex-direction:column;align-items:center;
+  .wrap{
+    position:relative;z-index:1;
+    width:100%;max-width:440px;margin:0 auto;
+    padding:0 18px;
+    padding-block:38px 46px;
   }
 
-  /* ---------- Cabecera ---------- */
-  .avatar{
-    width:104px;height:104px;border-radius:50%;
-    display:grid;place-items:center;
-    background:rgba(242,238,230,.96);
-    border:1px solid rgba(200,145,22,.55);
-    box-shadow:0 10px 40px -12px rgba(0,0,0,.7);
-    overflow:hidden;
+  /* ---------- cabecera ---------- */
+  .logo{
+    width:82px;height:82px;margin:0 auto 16px;
+    border-radius:50%;object-fit:cover;
+    border:1px solid var(--gold);
+    background:var(--noche);
   }
-  .avatar img{width:78%;height:auto;}
-
   h1{
-    margin:18px 0 2px;
-    font-family:var(--serif);font-weight:400;
-    font-size:clamp(1.7rem,6vw,2.15rem);
-    letter-spacing:.03em;
-    text-align:center;
+    font-family:var(--serif);font-weight:500;letter-spacing:.06em;
+    font-size:31px;line-height:1.1;text-align:center;margin:0;
   }
-  .tagline{
-    font-family:var(--script);
-    font-size:clamp(1.35rem,5vw,1.65rem);
-    color:var(--gold-soft);
-    line-height:1.2;
-    margin-bottom:4px;
-  }
-  .sedes{
-    font-size:12px;letter-spacing:.08em;text-transform:uppercase;
-    color:rgba(231,226,213,.62);
-    text-align:center;
+  .firma{
+    font-family:var(--script);color:var(--gold-soft);
+    font-size:27px;line-height:1;text-align:center;margin:6px 0 12px;
   }
 
-  /* ---------- Redes ---------- */
-  .redes{display:flex;gap:12px;margin:22px 0 30px;}
-  .redes a{
-    width:44px;height:44px;border-radius:50%;
-    display:grid;place-items:center;
-    border:1px solid rgba(200,145,22,.42);
-    color:var(--gold-soft);
-    transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease);
+  /* Estado en vivo: se calcula con la hora de Lima, no la del dispositivo. */
+  .estado{
+    display:flex;align-items:center;justify-content:center;gap:7px;
+    font-size:12.5px;color:var(--crema-2);margin:0 0 4px;
   }
-  .redes a:hover,.redes a:focus-visible{
-    background:var(--gold);border-color:var(--gold);color:var(--brown-deep);
-    transform:translateY(-2px);
+  .punto{
+    width:7px;height:7px;border-radius:50%;background:var(--crema-2);flex:none;
   }
-  .redes svg{width:20px;height:20px;}
+  .estado.on .punto{background:var(--abierto);box-shadow:0 0 0 3px rgba(143,181,102,.18)}
+  .estado.off .punto{background:var(--cerrado)}
+  .estado b{font-weight:500;color:var(--crema)}
+  .sedes-linea{
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--crema-2);text-align:center;margin:0 0 22px;
+  }
 
-  /* ---------- Botones ---------- */
-  .enlaces{display:flex;flex-direction:column;gap:12px;width:100%;}
+  /* ---------- acción principal ---------- */
+  .principal{
+    display:flex;align-items:center;gap:12px;
+    background:linear-gradient(100deg,var(--gold) 0%,#B27F10 100%);
+    color:#2A1A10;
+    padding:15px 18px;border-radius:13px;
+    box-shadow:0 8px 22px rgba(0,0,0,.34);
+    transition:transform .18s ease,box-shadow .18s ease;
+  }
+  .principal:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.42)}
+  .principal .t{font-family:var(--serif);font-size:19.5px;font-weight:600;line-height:1.15;display:block}
+  .principal .s{font-size:12px;opacity:.78;display:block;margin-top:1px}
+  .principal svg{flex:none}
+  .principal .flecha{margin-left:auto;flex:none}
 
-  .enlace{
-    display:flex;align-items:center;gap:14px;
-    padding:15px 18px;
-    border-radius:18px;
-    background:rgba(242,238,230,.055);
-    border:1px solid rgba(200,145,22,.3);
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-    transition:background .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease);
+  /* ---------- rejilla de acciones ---------- */
+  .rejilla{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:9px;
   }
-  .enlace:hover,.enlace:focus-visible{
-    background:rgba(200,145,22,.14);
-    border-color:var(--gold);
-    transform:translateY(-2px);
+  .accion{
+    display:flex;flex-direction:column;gap:7px;min-width:0;
+    background:var(--brasa);border:1px solid var(--borde);
+    border-radius:12px;padding:13px 14px;
+    transition:background .16s ease,border-color .16s ease,transform .16s ease;
   }
-  .enlace .ico{
-    width:38px;height:38px;flex:none;border-radius:12px;
-    display:grid;place-items:center;
-    background:rgba(200,145,22,.16);
-    color:var(--gold-soft);
-  }
-  .enlace .ico svg{width:19px;height:19px;}
-  .enlace .txt{flex:1;min-width:0;}
-  .enlace .t{
-    display:block;
-    font-family:var(--serif);font-size:16.5px;letter-spacing:.015em;
-    line-height:1.25;
-  }
-  .enlace .s{
-    display:block;
-    font-size:11.5px;color:rgba(231,226,213,.58);line-height:1.4;margin-top:2px;
-  }
-  .enlace .flecha{flex:none;color:rgba(200,145,22,.6);}
-  .enlace .flecha svg{width:16px;height:16px;}
+  .accion:hover{background:var(--brasa-2);border-color:var(--gold);transform:translateY(-2px)}
+  .accion .t{font-family:var(--serif);font-size:16.5px;font-weight:600;line-height:1.15}
+  .accion .s{font-size:11.5px;color:var(--crema-2);line-height:1.35}
+  .accion svg{color:var(--gold-soft)}
 
-  /* Botón destacado: el que queremos que se toque primero. */
-  .enlace.principal{
-    background:linear-gradient(135deg,rgba(200,145,22,.95),rgba(168,121,15,.95));
-    border-color:var(--gold-soft);
-    color:#2A1A0C;
+  /* ---------- bloques ---------- */
+  .bloque{margin-top:26px}
+  .titulo{
+    display:flex;align-items:center;gap:10px;margin:0 0 11px;
+    font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--gold-soft);font-weight:500;
   }
-  .enlace.principal .ico{background:rgba(42,26,12,.16);color:#2A1A0C;}
-  .enlace.principal .s{color:rgba(42,26,12,.72);}
-  .enlace.principal .flecha{color:rgba(42,26,12,.62);}
-  .enlace.principal:hover{background:linear-gradient(135deg,var(--gold-soft),var(--gold));}
+  .titulo::after{content:"";flex:1;height:1px;background:var(--borde)}
 
-  /* ---------- Tarjetas con imagen ---------- */
-  .destacados{
-    display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;margin-top:12px;
+  /* ---------- selector de sede ---------- */
+  .tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-bottom:10px}
+  .tab{
+    padding:9px 6px;border-radius:9px;text-align:center;cursor:pointer;
+    background:var(--brasa);border:1px solid var(--borde);
+    font-size:13px;color:var(--crema-2);
+    transition:background .16s ease,color .16s ease,border-color .16s ease;
   }
-  .destacado{
-    position:relative;border-radius:18px;overflow:hidden;
-    border:1px solid rgba(200,145,22,.3);
-    aspect-ratio:4/3;
-    transition:transform .35s var(--ease),border-color .35s var(--ease);
+  .tab[aria-selected="true"]{background:var(--gold-tenue);border-color:var(--gold);color:var(--crema);font-weight:500}
+  .panel{
+    background:var(--brasa);border:1px solid var(--borde);border-radius:12px;padding:15px 16px;
   }
-  .destacado:hover,.destacado:focus-visible{transform:translateY(-2px);border-color:var(--gold);}
-  .destacado img{width:100%;height:100%;object-fit:cover;}
-  .destacado .capa{
+  .panel .dir{font-size:13.5px;line-height:1.45;margin:0 0 3px}
+  .panel .ref{font-size:11.5px;color:var(--crema-2);margin:0 0 10px}
+  .panel .cobertura{
+    font-size:11.5px;color:var(--crema-2);line-height:1.45;
+    border-left:2px solid var(--gold);padding-left:10px;margin:0 0 13px;
+  }
+  .panel .cobertura b{color:var(--crema);font-weight:500}
+  .acciones-sede{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .mini{
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    padding:9px 8px;border-radius:9px;font-size:12.5px;
+    border:1px solid var(--borde);background:var(--noche);
+    transition:border-color .16s ease,background .16s ease;
+  }
+  .mini:hover{border-color:var(--gold);background:var(--brasa-2)}
+  .mini svg{flex:none;color:var(--gold-soft)}
+
+  /* ---------- carta ---------- */
+  .carta{
+    background:var(--brasa);border:1px solid var(--borde);border-radius:12px;
+    padding:4px 16px;
+  }
+  .fila{
+    display:flex;align-items:baseline;gap:10px;
+    padding:9.5px 0;border-bottom:1px solid rgba(92,58,35,.55);
+  }
+  .fila:last-of-type{border-bottom:0}
+  .fila .n{font-family:var(--serif);font-size:16px;font-weight:500;flex:none}
+  .fila .p{
+    margin-left:auto;font-size:12.5px;color:var(--gold-soft);white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  .fila .c{font-size:11px;color:var(--crema-2);white-space:nowrap}
+  .carta-pie{
+    display:block;text-align:center;font-size:12.5px;color:var(--gold-soft);
+    padding:12px 0 13px;border-top:1px solid var(--borde);margin-top:2px;
+  }
+
+  /* ---------- promo destacada ---------- */
+  .promo{
+    position:relative;display:block;border-radius:13px;overflow:hidden;
+    border:1px solid var(--gold);
+  }
+  .promo img{width:100%;height:158px;object-fit:cover}
+  .promo .capa{
     position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(28,17,9,.15) 35%,rgba(28,17,9,.88) 100%);
-    display:flex;align-items:flex-end;padding:12px;
+    background:linear-gradient(180deg,rgba(42,26,16,.15) 0%,rgba(42,26,16,.88) 62%,rgba(42,26,16,.96) 100%);
   }
-  .destacado .capa > span{
-    display:block;
-    font-family:var(--serif);font-size:14.5px;line-height:1.2;color:var(--cream-2);
+  .promo .txt{position:absolute;left:0;right:0;bottom:0;padding:14px 16px}
+  .promo .et{
+    display:inline-block;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:#2A1A10;background:var(--gold);padding:3px 8px;border-radius:20px;font-weight:500;margin-bottom:7px;
   }
+  .promo .t{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.15;margin:0}
+  .promo .s{font-size:11.5px;color:var(--crema-2);line-height:1.4;margin:4px 0 0}
 
-  .pie{
-    margin-top:34px;text-align:center;
-    font-size:11.5px;color:rgba(231,226,213,.45);line-height:1.7;
+  /* ---------- reseña ---------- */
+  .resena{
+    display:flex;align-items:center;gap:12px;
+    background:var(--brasa);border:1px solid var(--borde);border-radius:12px;
+    padding:13px 15px;
+    transition:border-color .16s ease,background .16s ease;
   }
-  .pie a{color:rgba(220,181,92,.8);}
+  .resena:hover{border-color:var(--gold);background:var(--brasa-2)}
+  .estrellas{color:var(--gold);letter-spacing:2px;font-size:13px;flex:none}
+  .resena .t{display:block;font-family:var(--serif);font-size:16.5px;font-weight:600;line-height:1.15}
+  .resena .s{display:block;font-size:11.5px;color:var(--crema-2);margin-top:1px}
+  .resena .flecha{margin-left:auto;flex:none;color:var(--crema-2)}
 
-  @media (max-width:380px){
-    .destacados{grid-template-columns:1fr;}
+  /* ---------- redes ---------- */
+  .redes{display:flex;justify-content:center;gap:11px;margin-top:26px}
+  .red{
+    width:43px;height:43px;border-radius:50%;
+    display:grid;place-items:center;
+    border:1px solid var(--borde);background:var(--brasa);color:var(--crema);
+    transition:border-color .16s ease,color .16s ease,transform .16s ease;
   }
+  .red:hover{border-color:var(--gold);color:var(--gold-soft);transform:translateY(-2px)}
+
+  footer{
+    margin-top:26px;padding-top:18px;border-top:1px solid var(--borde);
+    text-align:center;font-size:11.5px;color:var(--crema-2);line-height:1.6;
+  }
+  footer a{color:var(--gold-soft)}
+
   @media (prefers-reduced-motion:reduce){
-    *{transition-duration:.01ms !important;}
+    *{transition:none!important}
+  }
+  @media (min-width:420px){
+    h1{font-size:34px}
+    .firma{font-size:29px}
   }
 </style>
 </head>
 <body>
 
 <div class="fondo" aria-hidden="true"></div>
-<div class="velo" aria-hidden="true"></div>
 
-<main class="shell">
+<main class="wrap">
 
-  <div class="avatar">
-    <img src="assets/img/logo.webp" alt="Aura Studio" width="104" height="104">
+  <img class="logo" src="assets/img/logo.webp" alt="Aura Studio" width="82" height="82">
+  <h1>Aura Studio</h1>
+  <p class="firma">Belleza Real</p>
+
+  <p class="estado" id="estado">
+    <span class="punto" aria-hidden="true"></span>
+    <span id="estadoTexto">Los Olivos e Independencia</span>
+  </p>
+  <p class="sedes-linea">Salón de belleza · Lima Norte</p>
+
+  <a class="principal" href="https://aurastudio.pe/#reservar">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/>
+    </svg>
+    <span>
+      <span class="t">Reservar mi cita</span>
+      <span class="s">Elige sede, servicio y profesional</span>
+    </span>
+    <svg class="flecha" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+      <path d="M5 12h14M13 6l6 6-6 6"/>
+    </svg>
+  </a>
+
+  <div class="rejilla">
+    <a class="accion" href="https://wa.me/51960142567?text=Hola%2C%20vengo%20de%20sus%20redes%20y%20quisiera%20hacer%20una%20consulta">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2c5.46 0 9.9-4.43 9.9-9.9 0-2.64-1.03-5.12-2.9-6.99A9.82 9.82 0 0 0 12.04 2m0 1.67c2.2 0 4.27.86 5.82 2.42a8.19 8.19 0 0 1 2.41 5.81c0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.4-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.32a8.18 8.18 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.25-8.23M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.72 2.75 4.23 3.74 2.09.82 2.51.66 2.97.62.46-.05 1.48-.6 1.69-1.19.21-.59.21-1.09.14-1.19-.06-.11-.22-.17-.47-.29-.24-.12-1.47-.72-1.7-.81-.22-.08-.39-.12-.55.12-.17.25-.63.8-.77.96-.14.17-.28.19-.53.07-.24-.13-1.04-.39-1.99-1.23-.73-.66-1.23-1.47-1.37-1.72-.14-.24-.02-.38.1-.5.11-.12.24-.29.36-.44.11-.16.14-.27.22-.45.07-.17.04-.32-.02-.45-.06-.12-.55-1.35-.76-1.84-.19-.46-.39-.4-.53-.41-.13 0-.29-.03-.45-.03"/>
+      </svg>
+      <span class="t">WhatsApp</span>
+      <span class="s">Consultas y citas por chat</span>
+    </a>
+
+    <a class="accion" href="https://aurastudio.pe/#promociones">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20.6 13.4 12 22l-9-9V4a1 1 0 0 1 1-1h8l8.6 8.6a1.4 1.4 0 0 1 0 1.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/>
+      </svg>
+      <span class="t">Promociones</span>
+      <span class="s">Hair Revival y Beauty Duo</span>
+    </a>
+
+    <a class="accion" href="https://aurastudio.pe/#valederegalo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="9" width="18" height="12" rx="1.5"/><path d="M3 13h18M12 9v12"/>
+        <path d="M12 9S9.5 3.5 7 5.5 9.5 9 12 9Zm0 0s2.5-5.5 5-3.5S14.5 9 12 9Z"/>
+      </svg>
+      <span class="t">Vales de regalo</span>
+      <span class="s">S/50, S/100 y S/200</span>
+    </a>
+
+    <a class="accion" href="https://aurastudio.pe/blog">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 4h12a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2Z"/><path d="M18 8h2v10a2 2 0 0 1-2 2M8 8h6M8 12h6M8 16h4"/>
+      </svg>
+      <span class="t">Consejos</span>
+      <span class="s">Cómo cuidar tu look en casa</span>
+    </a>
   </div>
 
-  <h1>Aura Studio</h1>
-  <p class="tagline">Belleza Real</p>
-  <p class="sedes">Los Olivos · Independencia · Lima</p>
+  <!-- ---------- sedes ---------- -->
+  <section class="bloque">
+    <h2 class="titulo">Dónde estamos</h2>
 
+    <div class="tabs" role="tablist" aria-label="Elige una sede">
+      <button class="tab" role="tab" id="tab-lo" aria-controls="panel-lo" aria-selected="true">Los Olivos</button>
+      <button class="tab" role="tab" id="tab-in" aria-controls="panel-in" aria-selected="false">Independencia</button>
+    </div>
+
+    <div class="panel" role="tabpanel" id="panel-lo" aria-labelledby="tab-lo">
+      <p class="dir">Jr. Manuel Gonzáles Prada 757</p>
+      <p class="ref">Urb. Good Year, Los Olivos · Todos los días de 10:00 a 21:00</p>
+      <p class="cobertura"><b>Cabello y color todos los días.</b> También uñas, pies, pestañas, cejas, maquillaje y depilación.</p>
+      <div class="acciones-sede">
+        <a class="mini" href="https://www.google.com/maps/search/?api=1&query=Aura%20Studio%20Jr.%20Manuel%20Gonz%C3%A1les%20Prada%20757%20Los%20Olivos%20Lima">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/>
+          </svg>
+          Cómo llegar
+        </a>
+        <a class="mini" href="https://wa.me/51960142567?text=Hola%2C%20quiero%20reservar%20en%20la%20sede%20de%20Los%20Olivos">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-4-1L3 20l1.2-4.9a8.4 8.4 0 0 1-1-4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/>
+          </svg>
+          Escribir
+        </a>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="panel-in" aria-labelledby="tab-in" hidden>
+      <p class="dir">Calle 1 N.° 130</p>
+      <p class="ref">Independencia · Todos los días de 10:00 a 21:00</p>
+      <p class="cobertura"><b>La única sede con faciales.</b> Uñas, pies, pestañas, cejas, maquillaje y depilación todos los días; cabello y color, lunes y martes.</p>
+      <div class="acciones-sede">
+        <a class="mini" href="https://www.google.com/maps/search/?api=1&query=Aura%20Studio%20Mega%20Calle%201%20130%20Independencia%20Lima">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/>
+          </svg>
+          Cómo llegar
+        </a>
+        <a class="mini" href="https://wa.me/51960142567?text=Hola%2C%20quiero%20reservar%20en%20la%20sede%20de%20Independencia">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-4-1L3 20l1.2-4.9a8.4 8.4 0 0 1-1-4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/>
+          </svg>
+          Escribir
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- carta ---------- -->
+  <section class="bloque">
+    <h2 class="titulo">La carta, de un vistazo</h2>
+    <div class="carta">
+      <div class="fila"><span class="n">Cabello</span><span class="c">28 servicios</span><span class="p">desde S/50</span></div>
+      <div class="fila"><span class="n">Color</span><span class="c">8 servicios</span><span class="p">desde S/100</span></div>
+      <div class="fila"><span class="n">Uñas</span><span class="c">12 servicios</span><span class="p">desde S/25</span></div>
+      <div class="fila"><span class="n">Pies</span><span class="c">5 servicios</span><span class="p">desde S/40</span></div>
+      <div class="fila"><span class="n">Pestañas</span><span class="c">9 servicios</span><span class="p">desde S/70</span></div>
+      <div class="fila"><span class="n">Cejas</span><span class="c">4 servicios</span><span class="p">desde S/40</span></div>
+      <div class="fila"><span class="n">Facial</span><span class="c">3 servicios</span><span class="p">desde S/40</span></div>
+      <div class="fila"><span class="n">Maquillaje</span><span class="c">4 servicios</span><span class="p">desde S/80</span></div>
+      <div class="fila"><span class="n">Depilación</span><span class="c">7 servicios</span><span class="p">desde S/10</span></div>
+      <a class="carta-pie" href="https://aurastudio.pe/#servicios">Ver los 80 servicios con precio →</a>
+    </div>
+  </section>
+
+  <!-- ---------- promo ---------- -->
+  <section class="bloque">
+    <h2 class="titulo">Si es tu primera vez</h2>
+    <a class="promo" href="https://aurastudio.pe/#reservar">
+      <img src="assets/img/promo-hair-revival.webp" alt="" width="440" height="158">
+      <span class="capa" aria-hidden="true"></span>
+      <span class="txt">
+        <span class="et">Aura Hair Revival</span>
+        <p class="t">20% en tu primera sesión</p>
+        <p class="s">Más diagnóstico capilar personalizado, sin costo. Válido reservando en línea.</p>
+      </span>
+    </a>
+  </section>
+
+  <!-- ---------- reseña ---------- -->
+  <section class="bloque">
+    <a class="resena" href="https://g.page/r/CaqMdrqJZzuOEBM/review">
+      <span class="estrellas" aria-hidden="true">★★★★★</span>
+      <span>
+        <span class="t">Déjanos una reseña</span>
+        <span class="s">Nos ayuda a que más vecinas nos encuentren</span>
+      </span>
+      <svg class="flecha" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path d="M5 12h14M13 6l6 6-6 6"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ---------- redes ---------- -->
   <nav class="redes" aria-label="Redes sociales">
-    <a href="https://www.instagram.com/aurastudiope_" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+    <a class="red" href="https://www.instagram.com/aurastudiope_" aria-label="Instagram">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/>
       </svg>
     </a>
-    <a href="https://www.tiktok.com/@aurastudiope" target="_blank" rel="noopener" aria-label="TikTok">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5 2.59 2.59 0 0 1 0-5.18c.27 0 .52.04.77.12v-3.15a5.71 5.71 0 0 0-.77-.05A5.73 5.73 0 0 0 4.13 15.4a5.73 5.73 0 0 0 5.73 5.72 5.73 5.73 0 0 0 5.73-5.72V9.01a7.35 7.35 0 0 0 4.28 1.38V7.3a4.29 4.29 0 0 1-3.27-1.48z"/>
+    <a class="red" href="https://www.tiktok.com/@aurastudiope" aria-label="TikTok">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5 2.59 2.59 0 0 1 0-5.18c.27 0 .52.04.76.12v-3.2a5.8 5.8 0 0 0-.76-.05 5.79 5.79 0 1 0 5.79 5.79V9.01a7.35 7.35 0 0 0 4.29 1.38V7.3a4.29 4.29 0 0 1-3.34-1.48Z"/>
       </svg>
     </a>
-    <a href="https://www.facebook.com/aurastudiolima/" target="_blank" rel="noopener" aria-label="Facebook">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+    <a class="red" href="https://www.facebook.com/aurastudiolima/" aria-label="Facebook">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M14 8.5V7.2c0-.7.4-1.1 1.2-1.1H17V3h-2.4c-2.6 0-3.8 1.6-3.8 3.9v1.6H9V12h1.8v9H14v-9h2.3l.4-3.5H14Z"/>
       </svg>
     </a>
-    <a href="https://wa.me/51934641018?text=Hola%2C%20vengo%20de%20sus%20redes%20y%20quisiera%20saber%20m%C3%A1s" target="_blank" rel="noopener" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/>
-      </svg>
-    </a>
-    <a href="mailto:aurastudioinfo.pe@gmail.com" aria-label="Correo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+    <a class="red" href="mailto:aurastudioinfo.pe@gmail.com" aria-label="Correo">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/>
       </svg>
     </a>
   </nav>
 
-  <div class="enlaces">
-
-    <a class="enlace principal" href="https://aurastudio.pe/#reservar">
-      <span class="ico">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/>
-        </svg>
-      </span>
-      <span class="txt">
-        <span class="t">Agenda tu cita</span>
-        <span class="s">Elige local, servicio y profesional</span>
-      </span>
-      <span class="flecha">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-      </span>
-    </a>
-
-    <a class="enlace" href="https://aurastudio.pe/#promociones">
-      <span class="ico">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M19 5a2 2 0 0 0-2-2h-5.6a2 2 0 0 0-1.4.6l-6.6 6.6a2 2 0 0 0 0 2.8l5.6 5.6a2 2 0 0 0 2.8 0l6.6-6.6a2 2 0 0 0 .6-1.4z"/><circle cx="14.5" cy="8.5" r="1" fill="currentColor"/>
-        </svg>
-      </span>
-      <span class="txt">
-        <span class="t">Promociones</span>
-        <span class="s">Hair Revival, Beauty Duo y más</span>
-      </span>
-      <span class="flecha">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-      </span>
-    </a>
-
-    <a class="enlace" href="https://wa.me/51934641018?text=Hola%2C%20quiero%20comprar%20un%20vale%20de%20regalo" target="_blank" rel="noopener">
-      <span class="ico">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect width="20" height="14" x="2" y="7" rx="2"/><path d="M12 7v14"/><path d="M2 12h20"/><path d="M12 7C10 7 8 5.5 8 4a2 2 0 0 1 4 0 2 2 0 0 1 4 0c0 1.5-2 3-4 3"/>
-        </svg>
-      </span>
-      <span class="txt">
-        <span class="t">Vales de regalo</span>
-        <span class="s">Regala una experiencia Aura</span>
-      </span>
-      <span class="flecha">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-      </span>
-    </a>
-
-    <a class="enlace" href="https://aurastudio.pe/#servicios">
-      <span class="ico">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M11.5 2.3a1 1 0 0 1 1 0l2.6 4.9 5.5.8a1 1 0 0 1 .5 1.7l-4 3.8.9 5.4a1 1 0 0 1-1.4 1L12 17.8l-4.9 2.6a1 1 0 0 1-1.4-1l.9-5.4-4-3.8a1 1 0 0 1 .5-1.7l5.5-.8z"/>
-        </svg>
-      </span>
-      <span class="txt">
-        <span class="t">Nuestros servicios</span>
-        <span class="s">79 servicios, de cabello a uñas</span>
-      </span>
-      <span class="flecha">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-      </span>
-    </a>
-
-    <a class="enlace" href="https://maps.google.com/?q=Aura+Studio+Los+Olivos+Lima" target="_blank" rel="noopener">
-      <span class="ico">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>
-        </svg>
-      </span>
-      <span class="txt">
-        <span class="t">Cómo llegar</span>
-        <span class="s">Los Olivos e Independencia</span>
-      </span>
-      <span class="flecha">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-      </span>
-    </a>
-
-    <!-- OJO: reemplazar por el enlace corto de reseñas del Perfil de Empresa
-         de Google (g.page/r/...), que solo se obtiene desde esa cuenta. Este
-         apunta a la búsqueda del negocio, que funciona pero deja a la clienta
-         un paso más lejos de escribir la reseña. -->
-    <a class="enlace" href="https://www.google.com/search?q=Aura+Studio+Los+Olivos+Lima" target="_blank" rel="noopener">
-      <span class="ico">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/>
-        </svg>
-      </span>
-      <span class="txt">
-        <span class="t">Déjanos una reseña</span>
-        <span class="s">Nos ayuda muchísimo</span>
-      </span>
-      <span class="flecha">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-      </span>
-    </a>
-
-  </div>
-
-  <div class="destacados">
-    <a class="destacado" href="https://aurastudio.pe/#promociones">
-      <img src="assets/img/promo-hair-revival.webp" alt="Aura Hair Revival: 20% de descuento y diagnóstico capilar gratis" loading="lazy">
-      <span class="capa"><span>Aura Hair Revival</span></span>
-    </a>
-    <a class="destacado" href="https://wa.me/51934641018?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20del%20Aura%20Beauty%20Duo" target="_blank" rel="noopener">
-      <img src="assets/img/promo-beauty-duo.webp" alt="Aura Beauty Duo: dos servicios a la vez, lunes y martes" loading="lazy">
-      <span class="capa"><span>Aura Beauty Duo</span></span>
-    </a>
-  </div>
-
-  <p class="pie">
+  <footer>
     <a href="https://aurastudio.pe">aurastudio.pe</a><br>
-    Av. Manuel González Prada 757, Los Olivos · C. 1 130, Independencia
-  </p>
+    960 142 567 · Los Olivos e Independencia, Lima
+  </footer>
 
 </main>
+
+<script>
+  /* Estado en vivo. El salón abre de 10:00 a 21:00 todos los días, así que la
+     hora que importa es la de Lima y no la del dispositivo de quien mira:
+     mucha clienta abre esto desde el extranjero para regalar un vale. */
+  (function () {
+    var ABRE = 10, CIERRA = 21;
+    var el = document.getElementById('estado');
+    var txt = document.getElementById('estadoTexto');
+    if (!el || !txt) return;
+
+    var h, m;
+    try {
+      var partes = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Lima', hour: '2-digit', minute: '2-digit', hour12: false
+      }).formatToParts(new Date());
+      partes.forEach(function (p) {
+        if (p.type === 'hour') h = parseInt(p.value, 10);
+        if (p.type === 'minute') m = parseInt(p.value, 10);
+      });
+    } catch (e) { return; }           // sin Intl se queda el texto por defecto
+    if (isNaN(h)) return;
+    if (h === 24) h = 0;
+
+    if (h >= ABRE && h < CIERRA) {
+      el.classList.add('on');
+      var faltan = (CIERRA - h) * 60 - m;
+      txt.innerHTML = faltan <= 60
+        ? '<b>Abierto ahora</b> · cierra en ' + faltan + ' min'
+        : '<b>Abierto ahora</b> · hasta las 9:00 p. m.';
+    } else {
+      el.classList.add('off');
+      txt.innerHTML = h < ABRE
+        ? '<b>Cerrado</b> · abre hoy a las 10:00 a. m.'
+        : '<b>Cerrado</b> · abre mañana a las 10:00 a. m.';
+    }
+  })();
+
+  /* Selector de sede. Las dos sedes no son intercambiables (el facial solo está
+     en Independencia), así que conviene que cada una muestre lo suyo. */
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+    if (!tabs.length) return;
+
+    function activar(tab) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) panel.hidden = !on;
+      });
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { activar(tab); });
+      tab.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        next.focus(); activar(next);
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
