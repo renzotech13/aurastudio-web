@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guía de balayage · Aura Studio</title>
+<meta name="description" content="Siete pasos para llegar al color que imaginas con tu balayage: cómo elegir tu tono, qué decirle a tu colorista y cómo cuidarlo. Guía de Aura Studio, Lima.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#2A1A10">
+<link rel="icon" href="../assets/img/logo.webp">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tu balayage, paso a paso · Aura Studio">
+<meta property="og:description" content="Siete pasos para llegar al color que imaginas, sin sorpresas el día de tu cita.">
+<meta property="og:image" content="https://aurastudio.pe/assets/img/capilar.webp">
+<meta property="og:url" content="https://aurastudio.pe/guias/balayage">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500&family=Alex+Brush&family=Poppins:wght@300;400;500;600&display=swap">
+
+<style>
+  /* Página aparte y sin el CSS del sitio: se abre desde un mensaje directo de
+     Instagram, Messenger o WhatsApp, casi siempre con datos móviles. Mismo
+     criterio que links.html: tema único, colores explícitos, cero JavaScript. */
+  :root{
+    --noche:#2A1A10; --brasa:#3E2717; --brasa-2:#4A2F1C; --borde:#5C3A23;
+    --gold:#C89116; --gold-soft:#DCB55C; --gold-tenue:rgba(200,145,22,.16);
+    --crema:#F2EEE6; --crema-2:#D8CEBA; --crema-3:#B8A98F;
+    --serif:"Cormorant",Georgia,serif; --script:"Alex Brush","Brush Script MT",cursive;
+    --sans:"Poppins",-apple-system,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--noche);color:var(--crema);font-family:var(--sans);
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;
+    padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+  h1,h2,h3,p,ul,ol{margin:0}
+  ul,ol{padding:0;list-style:none}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px;border-radius:4px}
+  .wrap{width:100%;max-width:640px;margin-inline:auto;padding-inline:20px}
+
+  /* portada */
+  .top{padding-block:22px 6px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .marca{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .marca img{width:34px;height:34px;object-fit:contain}
+  .marca span{font-family:var(--serif);font-weight:700;font-size:1.05rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--crema)}
+  .sello{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);
+    border:1px solid var(--borde);border-radius:999px;padding:.3rem .8rem}
+  .hero{padding-block:34px 26px}
+  .hero .script{font-family:var(--script);font-size:2.2rem;color:var(--gold-soft);line-height:1}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.4rem,9vw,3.3rem);
+    line-height:1.02;letter-spacing:-.01em;margin-top:.15rem;text-wrap:balance}
+  .hero p{margin-top:1rem;color:var(--crema-2);max-width:46ch}
+  .datos{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:1.6rem;
+    background:var(--borde);border:1px solid var(--borde);border-radius:14px;overflow:hidden}
+  .dato{background:var(--brasa);padding:.85rem .5rem;text-align:center}
+  .dato b{display:block;font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--gold-soft);line-height:1.1}
+  .dato span{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--crema-3)}
+
+  /* pasos */
+  .pasos{display:flex;flex-direction:column;gap:14px;padding-bottom:10px}
+  .paso{background:var(--brasa);border:1px solid var(--borde);border-radius:18px;padding:20px 20px 18px;
+    display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:16px;row-gap:0}
+  .paso > :not(.n){grid-column:2}
+  .paso h2 + p{margin-top:.35rem}
+  .paso > *{min-width:0}
+  .n{font-family:var(--serif);font-weight:700;font-size:2.3rem;line-height:.9;color:var(--gold);
+    grid-row:1 / span 6;grid-column:1;font-variant-numeric:tabular-nums}
+  .paso h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;line-height:1.1;color:var(--crema)}
+  .paso p{color:var(--crema-2);font-size:.9rem}
+  .tip{margin-top:.7rem;background:var(--gold-tenue);border-left:2px solid var(--gold);
+    border-radius:0 10px 10px 0;padding:.6rem .85rem;font-size:.82rem;color:var(--crema)}
+  .tip b{color:var(--gold-soft);font-weight:600}
+  .familias{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:.8rem}
+  .fam{background:var(--noche);border:1px solid var(--borde);border-radius:12px;padding:.7rem .5rem;text-align:center}
+  .fam b{display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-soft);font-weight:500}
+  .fam span{font-size:.78rem;color:var(--crema-2)}
+  .etapas{margin-top:.7rem;display:flex;flex-direction:column;gap:.5rem}
+  .etapas li{display:flex;gap:.65rem;font-size:.86rem;color:var(--crema-2)}
+  .etapas li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:.6rem}
+  .etapas b{color:var(--crema);font-weight:500}
+
+  /* lista para llevar */
+  h2.tit{font-family:var(--serif);font-weight:600;font-size:1.9rem;line-height:1.1;margin:34px 0 14px;text-wrap:balance}
+  .lista{background:var(--brasa-2);border:1px solid var(--borde);border-radius:18px;padding:6px 18px}
+  .lista label{display:flex;gap:.8rem;align-items:flex-start;padding:.85rem 0;
+    border-bottom:1px solid var(--borde);font-size:.9rem;color:var(--crema-2);cursor:pointer}
+  .lista label:last-child{border-bottom:0}
+  .lista input{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:.15rem 0 0;
+    border:1.5px solid var(--gold);border-radius:6px;background:transparent;cursor:pointer;display:grid;place-items:center}
+  .lista input:checked{background:var(--gold)}
+  .lista input:checked::after{content:"";width:5px;height:9px;border:solid var(--noche);
+    border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+  .lista input:checked + span{color:var(--crema);text-decoration:line-through;text-decoration-color:var(--crema-3)}
+
+  /* cierre */
+  .cierre{margin-top:34px;text-align:center;background:linear-gradient(160deg,var(--brasa-2),var(--brasa));
+    border:1px solid var(--gold);border-radius:22px;padding:30px 22px}
+  .cierre .script{font-family:var(--script);font-size:1.9rem;color:var(--gold-soft);line-height:1}
+  .cierre h2{font-family:var(--serif);font-weight:600;font-size:1.8rem;line-height:1.1;margin-top:.2rem}
+  .cierre p{color:var(--crema-2);margin:.8rem auto 0;max-width:38ch;font-size:.9rem}
+  .botones{display:flex;flex-direction:column;gap:10px;margin-top:1.4rem}
+  .btn{display:flex;align-items:center;justify-content:center;min-height:50px;padding:.7rem 1.2rem;
+    border-radius:999px;text-decoration:none;font-weight:500;font-size:.92rem;transition:filter .2s,background .2s}
+  .btn--pri{background:var(--gold);color:var(--noche);font-weight:600}
+  .btn--pri:hover{filter:brightness(1.1)}
+  .btn--sec{border:1px solid var(--borde);color:var(--crema)}
+  .btn--sec:hover{background:var(--brasa)}
+  .nota{margin-top:1.1rem;font-size:.72rem;color:var(--crema-3)}
+  .pie{padding-block:34px 40px;text-align:center;font-size:.64rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--crema-3)}
+  .pie a{color:var(--gold-soft);text-decoration:none}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <a class="marca" href="https://aurastudio.pe">
+    <img src="../assets/img/logo.webp" alt="" width="34" height="34">
+    <span>Aura Studio</span>
+  </a>
+  <span class="sello">Guía gratuita</span>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="script">Tu balayage,</div>
+    <h1>paso a paso</h1>
+    <p>Siete pasos para llegar al color que imaginas, sin sorpresas el día de tu cita. Es lo mismo que le pediría tu colorista que tengas claro antes de sentarte.</p>
+    <div class="datos" aria-label="Datos del servicio">
+      <div class="dato"><b>4 h</b><span>de servicio</span></div>
+      <div class="dato"><b>S/ 350</b><span>balayage</span></div>
+      <div class="dato"><b>3–4 m</b><span>sin retoque</span></div>
+    </div>
+  </section>
+
+  <ol class="pasos">
+    <li class="paso">
+      <span class="n">1</span>
+      <h2>Elige tu referencia</h2>
+      <p>Guarda dos o tres fotos del tono que quieres, mejor con luz natural: la luz del salón y la de tu celular cambian el color que se ve.</p>
+      <div class="tip"><b>Suma una foto de lo que NO quieres</b> (amarillo, naranja, una línea marcada en la raíz). A tu colorista le sirve tanto como la otra.</div>
+    </li>
+
+    <li class="paso">
+      <span class="n">2</span>
+      <h2>Ubica tu punto de partida</h2>
+      <p>Anota tu color actual y todo lo que le has hecho: tintes, decoloraciones, alisados. Con fechas aproximadas.</p>
+      <div class="tip"><b>Un alisado con formol o una decoloración reciente</b> cambian el camino. Contarlo desde el inicio evita que el resultado te sorprenda.</div>
+    </li>
+
+    <li class="paso">
+      <span class="n">3</span>
+      <h2>Escoge tu familia de tono</h2>
+      <p>Casi todos los balayage caen en una de tres familias:</p>
+      <div class="familias">
+        <div class="fam"><b>Cálidos</b><span>miel, caramelo</span></div>
+        <div class="fam"><b>Neutros</b><span>avellana, beige</span></div>
+        <div class="fam"><b>Fríos</b><span>cenizo</span></div>
+      </div>
+      <div class="tip"><b>Prueba rápida:</b> mira las venas de tu muñeca con luz de día. Si se ven verdosas, suelen favorecerte los cálidos; si se ven azuladas o moradas, los fríos. Es una pista, la decisión final la tomas con tu colorista.</div>
+    </li>
+
+    <li class="paso">
+      <span class="n">4</span>
+      <h2>Sé realista con cuánto se aclara</h2>
+      <p>El balayage aclara de medios a puntas, y hasta dónde llega depende del estado de tu fibra. Si tu cabello es oscuro o ya tiene tintes, quizá el tono se alcance por etapas.</p>
+      <div class="tip"><b>Eso lo define la evaluación con la colorista, no una foto.</b> Nuestro balayage es válido hasta la altura del brasier, previa evaluación.</div>
+    </li>
+
+    <li class="paso">
+      <span class="n">5</span>
+      <h2>Revisa la salud de tu cabello</h2>
+      <p>La decoloración abre la cutícula, y eso pide una base resistente. Un cabello sano retiene mejor el tono y refleja mejor la luz.</p>
+      <div class="tip"><b>Si tienes químicos recientes,</b> primero conviene recuperar con un tratamiento de nutrición o reconstrucción y recién después aclarar.</div>
+    </li>
+
+    <li class="paso">
+      <span class="n">6</span>
+      <h2>Tu día en el salón</h2>
+      <p>Son unas cuatro horas y no se apuran: cada sección se trabaja por separado. Así se hace:</p>
+      <ul class="etapas">
+        <li><span><b>Diseño de particiones.</b> Se decide dónde va la luz y dónde quedan mechas oscuras para dar profundidad.</span></li>
+        <li><span><b>Decoloración progresiva.</b> Con oxidantes bajos, lenta y controlada, para cuidar la fibra.</span></li>
+        <li><span><b>Matiz o baño de color.</b> Neutraliza el cobrizo o el amarillo y deja el tono exacto que buscas.</span></li>
+        <li><span><b>Tratamiento de cierre.</b> Devuelve la hidratación que se pierde en el proceso.</span></li>
+      </ul>
+    </li>
+
+    <li class="paso">
+      <span class="n">7</span>
+      <h2>Cuídalo en casa y planea el retoque</h2>
+      <p>El salón hace la mitad del trabajo; la otra mitad es tu rutina. Como el balayage no deja línea de raíz, muchas clientas pasan tres o cuatro meses sin retocar.</p>
+      <ul class="etapas">
+        <li><span><b>Champú sin sulfatos:</b> los sulfatos barren el matiz en pocas semanas.</span></li>
+        <li><span><b>Mascarilla nutritiva</b> al menos una vez por semana.</span></li>
+        <li><span><b>Protector térmico</b> si usas plancha o rizador.</span></li>
+        <li><span><b>Lavados espaciados:</b> cada dos días ayuda a proteger la fibra.</span></li>
+      </ul>
+    </li>
+  </ol>
+
+  <h2 class="tit">Lleva esto a tu evaluación</h2>
+  <div class="lista">
+    <label><input type="checkbox"><span>Dos o tres fotos del tono que quieres</span></label>
+    <label><input type="checkbox"><span>Una foto de lo que no quieres</span></label>
+    <label><input type="checkbox"><span>La lista de tus químicos con fechas (tintes, decoloraciones, alisados)</span></label>
+    <label><input type="checkbox"><span>Tiempo libre: el servicio toma unas 4 horas</span></label>
+  </div>
+
+  <section class="cierre">
+    <div class="script">Es tu turno</div>
+    <h2>Reserva tu evaluación de balayage</h2>
+    <p>Cuéntanos qué tono imaginas y te decimos si se logra en una sesión o por etapas.</p>
+    <div class="botones">
+      <a class="btn btn--pri" href="https://wa.me/51960142567?text=Hola%2C%20vengo%20de%20la%20gu%C3%ADa%20de%20balayage%20y%20quiero%20reservar%20en%20la%20sede%20de%20Los%20Olivos">Reservar en Los Olivos</a>
+      <a class="btn btn--sec" href="https://wa.me/51960142567?text=Hola%2C%20vengo%20de%20la%20gu%C3%ADa%20de%20balayage%20y%20quiero%20reservar%20en%20la%20sede%20de%20Independencia">Reservar en Independencia</a>
+      <a class="btn btn--sec" href="https://aurastudio.pe/#servicios">Ver la carta completa</a>
+    </div>
+    <p class="nota">Precio y duración según la carta vigente 2026. La colorista confirma el presupuesto final tras evaluar tu cabello.</p>
+  </section>
+</main>
+
+<footer class="pie">
+  <a href="https://aurastudio.pe">aurastudio.pe</a> · Los Olivos e Independencia, Lima
+</footer>
+
+</body>
+</html>
